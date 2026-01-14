@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | SatyaID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-gray-200 to-gray-400 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-8 rounded-2xl shadow-2xl w-96">
+
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">SatyaID</h1>
+    <p class="text-center text-gray-500 mb-6">Create Your Account</p>
+
+    <form method="POST" onsubmit="showPopup(event)">
+
+        <input name="name" placeholder="Full Name"
+               class="w-full border p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400" required>
+
+        <input type="email" name="email" placeholder="Email Address"
+               class="w-full border p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400" required>
+
+        <input type="text" name="contact" placeholder="Contact Number"
+               class="w-full border p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400" required>
+
+        <input type="password" name="password" placeholder="Password"
+               class="w-full border p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400" required>
+
+        <input type="text" name="application_number" placeholder="Application Number"
+               class="w-full border p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400" required>
+
+
+        <!-- Auto-filled role -->
+        <input type="text" name="role" value="USER" readonly
+               class="w-full border bg-gray-100 p-3 mb-6 rounded-lg text-gray-600">
+
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
+            REGISTER
+        </button>
+
+    </form>
+
+    <!-- Login option -->
+    <p class="text-center text-sm mt-4 text-gray-600">
+        Already have an account?
+        <a href="/login" class="text-blue-600 font-semibold hover:underline">Login</a>
+    </p>
+</div>
+
+<!-- SUCCESS POPUP -->
+<div id="popup"
+     class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-xl shadow-xl text-center">
+        <h2 class="text-xl font-semibold text-green-600 mb-2">
+            Registration Successful
+        </h2>
+        <p>Please login to continue</p>
+    </div>
+</div>
+
+<script>
+    function showPopup(event) {
+        event.preventDefault();
+        document.getElementById('popup').classList.remove('hidden');
+
+        setTimeout(() => {
+            event.target.submit();
+        }, 1800);
+    }
+</script>
+
+</body>
+</html>

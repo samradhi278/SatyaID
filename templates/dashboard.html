@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard | SatyaID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-8 rounded-xl shadow w-96">
+
+    <h2 class="text-xl font-semibold mb-6 text-center text-blue-600">
+        Upload & Verify Document
+    </h2>
+
+    <!-- DOCUMENT UPLOAD FORM -->
+    <form method="POST" action="/verify" enctype="multipart/form-data">
+
+        <!-- Document Type -->
+        <select name="doc_type"
+                class="w-full border border-gray-300 p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400"
+                required>
+            <option value="">Select Document Type</option>
+            <option value="aadhaar">Aadhaar Card</option>
+            <option value="pan">PAN Card</option>
+            <option value="pwd">PwD Certificate</option>
+            <option value="caste">Caste Certificate</option>
+        </select>
+
+        <!-- File Upload -->
+        <div class="border-dashed border-2 border-gray-300 p-6 mb-4 text-center rounded-lg">
+            <input type="file" name="document" required class="mb-3 w-full"/>
+            <p class="text-gray-500 text-sm">Upload document image (PNG / JPG)</p>
+        </div>
+
+        <!-- VERIFY BUTTON -->
+        <button
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+            Verify Document
+        </button>
+
+    </form>
+
+    <!-- REPORT SECTION -->
+    {% if report %}
+    <div class="mt-6 p-4 border rounded-lg bg-gray-50">
+        <h3 class="font-semibold mb-2 text-gray-700">Verification Report</h3>
+
+        <div class="flex justify-between text-sm mb-1">
+            <span>Document:</span>
+            <span class="font-medium">{{ report.doc }}</span>
+        </div>
+
+        <div class="flex justify-between text-sm">
+            <span>Status:</span>
+            <span class="font-semibold
+                {% if report.status == 'Verified' %}
+                    text-green-600
+                {% else %}
+                    text-red-600
+                {% endif %}
+            ">
+                {{ report.status }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

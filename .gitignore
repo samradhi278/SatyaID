@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+
+# Environment files
+.env
+.env.local
+
+# Editor directories
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Uploads and database
+uploads/
+*.db
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# Logs
+*.log
+
+# PyCharm
+*.iml

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | SatyaID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-gray-200 to-gray-400 flex items-center justify-center min-h-screen">
+
+
+<div class="bg-white p-8 rounded-2xl shadow-2xl w-96 animate-fade-in">
+
+    <!-- Logo -->
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">SatyaID</h1>
+    <p class="text-center text-gray-500 mb-6">Secure Document Verification</p>
+
+    <form method="POST" onsubmit="showPopup(event)">
+
+        <input name="name" placeholder="Username / ID"
+               class="w-full border border-gray-300 p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400"
+               required>
+
+        <input type="password" name="password" placeholder="Password"
+               class="w-full border border-gray-300 p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400"
+               required>
+
+        <select name="role"
+                class="w-full border border-gray-300 p-3 mb-6 rounded-lg focus:ring-2 focus:ring-blue-400"
+                required>
+            <option value="">Select Role</option>
+            <option>User</option>
+            <option>Admin</option>
+            <option>Official</option>
+        </select>
+
+        <button
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+            LOGIN
+    </button>
+
+    <div class="mt-4 text-center space-y-2 text-sm text-gray-600">
+
+    <a href="#" class="block hover:underline">
+        Forgot Password?
+    </a>
+
+    <a href="/register" class="block text-blue-600 font-semibold hover:underline">
+        New user? Register here
+    </a>
+
+</div>
+
+
+    </form>
+</div>
+
+<!-- LOGIN SUCCESS POPUP -->
+<div id="popup"
+     class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-xl shadow-xl text-center">
+        <h2 class="text-xl font-semibold text-green-600 mb-2">Login Successful</h2>
+        <p class="mb-4">Redirecting to dashboard...</p>
+    </div>
+</div>
+
+
+
+<script>
+    function showPopup(event) {
+        event.preventDefault();
+        document.getElementById('popup').classList.remove('hidden');
+
+        setTimeout(() => {
+            event.target.submit();
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>

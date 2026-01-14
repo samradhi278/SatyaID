@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Document</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-10 rounded shadow-lg w-96">
+        <h1 class="text-2xl font-bold mb-6 text-center">Upload Document</h1>
+        <form id="uploadForm" class="space-y-4" enctype="multipart/form-data">
+            <input type="file" id="file" class="w-full p-2 border rounded">
+            <select id="doc_type" class="w-full p-2 border rounded">
+                <option value="PAN">PAN</option>
+                <option value="Aadhar">Aadhar</option>
+                <option value="Passport">Passport</option>
+            </select>
+            <button type="submit" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                Upload
+            </button>
+        </form>
+        <p class="mt-4 text-center text-sm text-gray-500">
+            Back to <a href="/" class="text-blue-500">Login Page</a>
+        </p>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('file').files[0];
+            const doc_type = document.getElementById('doc_type').value;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('doc_type', doc_type);
+
+            const res = await fetch('http://127.0.0.1:5000/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await res.json();
+            alert(`${doc_type} upload status: ${data.status}`);
+        });
+    </script>
+</body>
+</html>

@@ -2,80 +2,164 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | SatyaID</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        html { 
+            scroll-behavior: smooth; 
+            -webkit-text-size-adjust: 100%; 
+            text-size-adjust: 100%; 
+        }
+        
+        .perspective { perspective: 1000px; }
+        
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: move 25s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%) rotate(0deg); }
+            to { transform: translate(15%, 15%) rotate(10deg); }
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 
-<body class="bg-gradient-to-r from-gray-200 to-gray-400 flex items-center justify-center min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 min-h-screen flex items-center justify-center overflow-x-hidden">
 
+    <div class="blob" style="top: -10%; left: -5%;"></div>
+    <div class="blob" style="bottom: -10%; right: -5%; animation-delay: -5s;"></div>
 
-<div class="bg-white p-8 rounded-2xl shadow-2xl w-96 animate-fade-in">
+    <div class="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-center gap-16 relative z-10">
+        
+        <div class="max-w-lg text-center lg:text-left space-y-8">
+            <div class="space-y-4">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                    Verify with <span class="text-blue-600">Confidence.</span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
+                    Access India's most secure decentralized identity platform for instant document verification.
+                </p>
+            </div>
 
-    <!-- Logo -->
-    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">SatyaID</h1>
-    <p class="text-center text-gray-500 mb-6">Secure Document Verification</p>
+            <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">01</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Enter Username</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Provide your unique SatyaID or registered username.</p>
+                    </div>
+                </div>
 
-    <form method="POST" onsubmit="showPopup(event)">
+                <div class="flex items-start gap-4">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">02</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Enter Password</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Input your secure password to authenticate your identity.</p>
+                    </div>
+                </div>
 
-        <input name="name" placeholder="Username / ID"
-               class="w-full border border-gray-300 p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400"
-               required>
+                <div class="flex items-start gap-4">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">03</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Select Role & Login</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Choose your access level and click login to enter the dashboard.</p>
+                    </div>
+                </div>
+            </div>
 
-        <input type="password" name="password" placeholder="Password"
-               class="w-full border border-gray-300 p-3 mb-4 rounded-lg focus:ring-2 focus:ring-blue-400"
-               required>
+            <div class="pt-4 flex items-center justify-center lg:justify-start gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                <span class="w-8 h-px bg-gray-300 dark:bg-gray-700"></span>
+                Trusted by 50+ Govt Agencies
+            </div>
+        </div>
 
-        <select name="role"
-                class="w-full border border-gray-300 p-3 mb-6 rounded-lg focus:ring-2 focus:ring-blue-400"
-                required>
-            <option value="">Select Role</option>
-            <option>User</option>
-            <option>Admin</option>
-            <option>Official</option>
-        </select>
+        <div class="w-full max-w-md perspective">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500 border border-gray-100 dark:border-gray-700">
+                
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-black tracking-widest italic text-blue-600 dark:text-blue-400 mb-1">SatyaID</h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your account</p>
+                </div>
 
-        <button
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300">
-            LOGIN
-    </button>
+                <form method="POST" onsubmit="showPopup(event)" class="space-y-4">
+                    <div>
+                        <input type="text" name="name" placeholder="Username / ID"
+                               class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white outline-none transition"
+                               required>
+                    </div>
 
-    <div class="mt-4 text-center space-y-2 text-sm text-gray-600">
+                    <div>
+                        <input type="password" name="password" placeholder="Password"
+                               class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white outline-none transition"
+                               required>
+                    </div>
 
-    <a href="#" class="block hover:underline">
-        Forgot Password?
-    </a>
+                    <div>
+                        <select name="role" aria-label="Select User Role"
+                                class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white cursor-pointer outline-none transition"
+                                required>
+                            <option value="">Select Role</option>
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Official">Official</option>
+                        </select>
+                    </div>
 
-    <a href="/register" class="block text-blue-600 font-semibold hover:underline">
-        New user? Register here
-    </a>
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold shadow-xl transition duration-300 transform active:scale-95">
+                        LOGIN
+                    </button>
 
-</div>
-
-
-    </form>
-</div>
-
-<!-- LOGIN SUCCESS POPUP -->
-<div id="popup"
-     class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-xl shadow-xl text-center">
-        <h2 class="text-xl font-semibold text-green-600 mb-2">Login Successful</h2>
-        <p class="mb-4">Redirecting to dashboard...</p>
+                    <div class="mt-6 text-center space-y-3 text-sm">
+                        <a href="#" class="block text-gray-500 dark:text-gray-400 hover:underline">
+                            Forgot Password?
+                        </a>
+                        <a href="/register" class="block text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                            New user? Register here
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
 
+    <div id="popup" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl text-center border border-gray-100 dark:border-gray-700 mx-4">
+            <div class="text-4xl mb-4">✅</div>
+            <h2 class="text-2xl font-black text-green-600 dark:text-green-400 mb-2">Login Successful</h2>
+            <p class="text-gray-500 dark:text-gray-400">Redirecting to dashboard...</p>
+        </div>
+    </div>
 
-
-<script>
-    function showPopup(event) {
-        event.preventDefault();
-        document.getElementById('popup').classList.remove('hidden');
-
-        setTimeout(() => {
-            event.target.submit();
-        }, 1500);
-    }
-</script>
-
+    <script>
+        function showPopup(event) {
+            event.preventDefault();
+            document.getElementById('popup').classList.remove('hidden');
+            setTimeout(() => {
+                event.target.submit();
+            }, 1500);
+        }
+    </script>
 </body>
 </html>

@@ -2,55 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Official Registration | SatyaID</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        .perspective { perspective: 1000px; }
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: move 20s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+        .float-anim {
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-to-r from-gray-200 to-gray-400 flex items-center justify-center min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 h-screen overflow-hidden flex items-center justify-center p-4">
 
-<div class="bg-white p-8 rounded-2xl shadow-2xl w-[420px]">
+    <div class="blob" style="top: -10%; left: -10%;"></div>
+    <div class="blob" style="bottom: -10%; right: -10%; animation-delay: -5s;"></div>
 
-    <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">SatyaID</h1>
-    <p class="text-center text-gray-500 mb-6">Official Registration</p>
+    <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 items-center gap-12 relative z-10 -translate-x-3">
+        
+        <div class="hidden lg:flex flex-col items-center justify-center space-y-6 lg:order-2">
+            <div class="text-center space-y-4">
+                <h2 class="text-5xl font-black text-gray-800 dark:text-white leading-tight">
+                    Institutional <br> 
+                    <span class="text-blue-600 dark:text-blue-400">Verification.</span>
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400 text-lg max-w-sm mx-auto">
+                    Secure onboarding for UGC recognized universities and educational bodies.
+                </p>
+            </div>
 
-    <form method="POST" enctype="multipart/form-data">
+            <div class="float-anim w-full max-w-sm">
+                <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-2xl">
+                    <defs>
+                        <linearGradient id="instGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6;" />
+                            <stop offset="100%" style="stop-color:#1d4ed8;" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M40 180 L120 40 L200 180 Z" fill="url(#instGrad)" opacity="0.1" />
+                    <circle cx="120" cy="80" r="25" fill="#1e293b" class="dark:fill-gray-400"/>
+                    <path d="M70 190 C70 150 90 130 120 130 C150 130 170 150 170 190 L170 200 L70 200 Z" fill="#1e293b" class="dark:fill-gray-400"/>
+                    <path d="M120 120 L145 135 L145 160 L120 175 L95 160 L95 135 Z" fill="#3b82f6" stroke="white" stroke-width="3"/>
+                    <path d="M110 148 L117 155 L132 140" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
 
-        <input name="name" placeholder="Official Name"
-               class="w-full border p-3 mb-3 rounded-lg" required>
+        <div class="w-full max-w-lg mx-auto perspective lg:order-1">
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
+                
+                <div class="mb-6">
+                    <h1 class="text-4xl font-black tracking-widest italic text-blue-700 dark:text-blue-400 mb-1">SatyaID</h1>
+                    <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-[10px] font-bold">Official University Portal</p>
+                </div>
 
-        <input type="email" name="email" placeholder="Official Email"
-               class="w-full border p-3 mb-3 rounded-lg" required>
+                <form method="POST" enctype="multipart/form-data" class="space-y-3">
+                    <div class="grid grid-cols-3 gap-3">
+                        <input name="name" type="text" placeholder="Official Name" class="col-span-1 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                        <input name="email" type="email" placeholder="Official Email" class="col-span-2 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                    </div>
 
-        <input type="password" name="password" placeholder="Password"
-               class="w-full border p-3 mb-3 rounded-lg" required>
+                    <input name="password" type="password" placeholder="Password" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+
+                    <div class="h-px bg-gray-100 dark:bg-gray-700 my-2"></div>
+
+                    <input name="university" type="text" placeholder="University Name" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                    <input name="university_email" type="email" placeholder="University Email" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <input name="gstin" type="text" placeholder="GSTIN ID" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                        <input name="aishe" type="text" placeholder="AISHE Code" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                    </div>
+
+                    <div>
+                        <label class="text-[12px] uppercase tracking-widest text-gray-400 ml-2 mb-1 block">Upload UGC Letter (PDF)</label>
+                        <input type="file" name="ugc_letter" class="w-full bg-gray-50 dark:bg-gray-700 border border-dashed border-gray-300 dark:border-gray-600 p-2 rounded-xl text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 dark:file:bg-gray-600 dark:file:text-gray-200" required>
+                    </div>
+
+                    <textarea name="address" rows="2" placeholder="University Address" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none resize-none" required></textarea>
+
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-sm">
+                        Submit for Approval
+                    </button>
+                </form>
+
+                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Already have an account?
+                        <a href="{{ url_for('login') }}" class="text-blue-600 dark:text-blue-400 font-bold hover:underline ml-1">Login
+                            here</a>
+                    </p>
+                </div>
 
 
-        <input name="university" placeholder="University Name"
-               class="w-full border p-3 mb-3 rounded-lg" required>
+            </div>
+        </div>
+    </div>
 
-        <input type="email" name="university_email" placeholder="University Email"
-               class="w-full border p-3 mb-3 rounded-lg" required>
-
-        <input name="gstin" placeholder="GSTIN ID"
-               class="w-full border p-3 mb-3 rounded-lg" required>
-
-        <input name="aishe" placeholder="AISHE Code"
-               class="w-full border p-3 mb-3 rounded-lg" required>
-
-        <label class="text-sm text-gray-600">Upload UGC Letter</label>
-        <input type="file" name="ugc_letter"
-               class="w-full border p-2 mb-3 rounded-lg" required>
-
-        <textarea name="address" placeholder="University Address"
-                  class="w-full border p-3 mb-5 rounded-lg" required></textarea>
-
-        <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold">
-            Submit for Approval
-        </button>
-
-    </form>
-
-</div>
-
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </body>
 </html>

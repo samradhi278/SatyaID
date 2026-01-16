@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_mail import Mail, Message
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mail import Mail, Message
@@ -28,9 +28,9 @@ approved_officials = []
 
 
 # Home / Role Selection Page
-@app.route('/')
-def home():
-    return render_template('page1.html')
+#@app.route('/')
+#def home():
+    #return render_template('page1.html')
 
 
 # User Details Page
@@ -285,20 +285,20 @@ def send_approval_email(email, login_link):
 
     mail.send(msg)
 
-import cv2
-import pytesseract
+# import cv2
+# import pytesseract
 import os
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-def extract_text(image_path):
-    img = cv2.imread(image_path)
-    if img is None:
-        return ""
+# def extract_text(image_path):
+#     img = cv2.imread(image_path)
+#     if img is None:
+#         return ""
 
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    text = pytesseract.image_to_string(gray)
-    return text.lower()
+#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#     text = pytesseract.image_to_string(gray)
+#     return text.lower()
 
 
 @app.route("/official-login", methods=["GET", "POST"])
@@ -322,30 +322,63 @@ def official_login():
 
     return render_template("official_login.html")
 
+#------------------------------------------------------------------------------------------------
+
+import cv2
+import pytesseract
+import os
+from PIL import Image
+import imagehash
 
 
-def verify_pan(uploaded_image):
-    user_text = extract_text(uploaded_image)
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-    if "income tax department" not in user_text:
-        return False
+def extract_text(image_path):
+    img = cv2.imread(image_path)
+    if img is None:
+        return ""
 
-    if "permanent account number" not in user_text:
-        return False
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    text = pytesseract.image_to_string(gray)
+    return text.lower()
 
-    return True
+
+#@app.route("/official-login", methods=["GET", "POST"])
+#def official_login():
+    #if request.method == "POST":
+        #email = request.form.get("email")
+        #password = request.form.get("password")
+
+        #official = next(
+            #(o for o in officials_db if o["email"] == email and o["password"] == password),
+            #None
+        #)
+
+        #if not official:
+            #return "Invalid credentials"
+
+        #if official["status"] != "APPROVED":
+            #return "Your account is not approved yet."
+
+        #return redirect(url_for("official_dashboard"))
+
+    #return render_template("official_login.html")
+
+def get_phash(image_path):
+    img = Image.open(image_path).convert("RGB")
+    return imagehash.phash(img)
 
 
-def verify_aadhaar(uploaded_image):
-    user_text = extract_text(uploaded_image)
+def is_real_document(uploaded_image, reference_image):
+    uploaded_hash = get_phash(uploaded_image)
+    reference_hash = get_phash(reference_image)
 
-    if "government of india" not in user_text:
-        return False
+    distance = uploaded_hash - reference_hash
 
-    if "uidai" not in user_text and "unique identification" not in user_text:
-        return False
-
-    return True
+    # Threshold: smaller = more similar
+    if distance <= 10:
+        return True
+    return False
 
 @app.route("/verify", methods=["POST"])
 def verify_document():
@@ -356,11 +389,13 @@ def verify_document():
     file.save(upload_path)
 
     if doc_type == "pan":
-        status = "Verified" if verify_pan(upload_path) else "Rejected"
+        reference = "reference/pan_real.png"
+        status = "Verified" if is_real_document(upload_path, reference) else "Rejected"
         doc_name = "PAN Card"
 
     elif doc_type == "aadhaar":
-        status = "Verified" if verify_aadhaar(upload_path) else "Rejected"
+        reference = "reference/aadhaar_real.png"
+        status = "Verified" if is_real_document(upload_path, reference) else "Rejected"
         doc_name = "Aadhaar Card"
 
     else:
@@ -373,7 +408,6 @@ def verify_document():
     }
 
     return render_template("dashboard.html", report=report)
-
 
 
 if __name__ == '__main__':

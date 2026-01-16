@@ -72,10 +72,10 @@
         </div>
 
         <div class="w-full max-w-lg mx-auto perspective lg:order-1">
-            <div class="bg-white dark:bg-gray-800 p-7 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
+            <div class="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
                 
                 <div class="mb-6">
-                    <h1 class="text-3xl font-black tracking-widest italic text-blue-700 dark:text-blue-400 mb-1">SatyaID</h1>
+                    <h1 class="text-4xl font-black tracking-widest italic text-blue-700 dark:text-blue-400 mb-1">SatyaID</h1>
                     <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-[10px] font-bold">Official University Portal</p>
                 </div>
 
@@ -108,6 +108,16 @@
                         Submit for Approval
                     </button>
                 </form>
+
+                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Already have an account?
+                        <a href="{{ url_for('login') }}" class="text-blue-600 dark:text-blue-400 font-bold hover:underline ml-1">Login
+                            here</a>
+                    </p>
+                </div>
+
+
             </div>
         </div>
     </div>

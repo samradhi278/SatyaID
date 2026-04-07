@@ -1,11 +1,11 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, session, url_for, flash
 from flask_mail import Mail, Message
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_mail import Mail, Message
+import pytesseract
+import random
+from flask_cors import CORS
 
-
-app = Flask(__name__)
-
+app = Flask(__name__, template_folder='frontend/templates', static_folder='frontend/static')
+CORS(app)
 app.secret_key = 'satyaid_secret_key'   # if not already added
 
 # ---------------- MAIL CONFIG ----------------
@@ -15,23 +15,12 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'satyaid0126@gmail.com'
 app.config['MAIL_PASSWORD'] = 'grks audn rwhs grsm'
 app.config['MAIL_DEFAULT_SENDER'] = 'satyaid0126@gmail.com'
-
 mail = Mail(app)
 # --------------------------------------------
-
 users_db = []
-
 officials_db = []
-
 pending_officials = []
-approved_officials = []
-
-
-# Home / Role Selection Page
-#@app.route('/')
-#def home():
-    #return render_template('page1.html')
-
+accepted_officials = []
 
 # User Details Page
 @app.route('/user-details', methods=['GET', 'POST'])
@@ -39,12 +28,11 @@ def user_details():
     if request.method == 'POST':
         # Later: save user details
         return redirect(url_for('dashboard'))
-
     return render_template('user_details.html')
 
 
 # Official Details Page
-@app.route('/official-details', methods=['GET', 'POST'])
+@app.route('/official-details', methods=['GET', 'POST']) #**********
 def official_details():
     if request.method == 'POST':
         # Later: save official details
@@ -58,7 +46,7 @@ def official_details():
 def dashboard():
     return render_template('dashboard.html')
 
-from flask import Flask, render_template, request, redirect, url_for
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -92,10 +80,12 @@ def login():
             )
 
             if not user:
-                return "User not found. Please register first."
+                flash("User not found. Please register first.", "error")
+                return redirect(url_for('login'))#********
 
-            if user["status"] != "APPROVED":
-                return "Your account is pending verification."
+            if user["status"] != "ACCEPTED":#******
+                flash("Your account is pending verification.", "error")#****
+                return redirect(url_for('login'))#********
 
             return redirect(url_for('dashboard'))
 
@@ -103,8 +93,6 @@ def login():
             return "Invalid role selected."
 
     return render_template('login.html')
-
-import random
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -130,35 +118,32 @@ def register():
 # Dummy user verification storage
 verified_users = set()
 
-@app.route('/official-dashboard')
+@app.route('/official_dashboard')
 def official_dashboard():
     pending_users = [u for u in users_db if u["status"] == "PENDING"]
-    approved_users = [u for u in users_db if u["status"] == "APPROVED"]
+    accepted_users = [u for u in users_db if u["status"] == "ACCEPTED"]
 
     return render_template(
         'official_dashboard.html',
         pending_users=pending_users,
-        approved_users=approved_users
+        accepted_users=accepted_users
     )
 
 
-@app.route('/approve-user/<int:index>', methods=['POST'])
-def approve_user(index):
-    users_db[index]["status"] = "APPROVED"
+@app.route('/accept-user/<int:index>', methods=['POST'])
+def accept_user(index):
+    users_db[index]["status"] = "ACCEPTED"
 
     login_link = url_for('login', _external=True)
 
     send_user_email(
         email=users_db[index]["email"],
         login_link=login_link,
-        approved=True
+        accepted=True
     )
 
-    flash("Decision made")
+    flash("Accepted and email sent!")#**************
     return redirect(url_for('official_dashboard'))
-
-
-@app.route('/reject-user/<int:index>', methods=['POST'])
 
 @app.route('/reject-user/<int:index>', methods=['POST'])
 def reject_user(index):
@@ -167,22 +152,22 @@ def reject_user(index):
     send_user_email(
         email=users_db[index]["email"],
         login_link=None,
-        approved=False
+        accepted=False
     )
 
-    flash("Decision made")
+    flash("Rejected")
     return redirect(url_for('official_dashboard'))
 
-def send_user_email(email, login_link=None, approved=True):
+def send_user_email(email, login_link=None, accepted=True):
     msg = Message(
         subject="SatyaID User Verification",
         recipients=[email]
     )
 
-    if approved:
+    if accepted:
         msg.html = f"""
         <p>Hello,</p>
-        <p>Your registration has been <b>approved</b>.</p>
+        <p>Your registration has been <b>accepted</b>.</p>
         <p>You can now login using the link below:</p>
         <a href="{login_link}">Login to SatyaID</a>
         <p>Thank you,<br>SatyaID Team</p>
@@ -232,17 +217,22 @@ def official_register():
             "status": "PENDING"
         })
 
-        return "Registration submitted. Await admin approval."
+        return redirect(url_for("official_login"))#********************
 
     return render_template("official_register.html")
 
 @app.route("/admin_dashboard")
 def admin_dashboard():
     return render_template("admin_dashboard.html", officials=officials_db)
-@app.route("/approve/<int:index>")
-def approve_official(index):
+
+# @app.route('/logout')
+# def logout():
+#     return redirect(url_for('login'))
+
+@app.route("/accept/<int:index>")
+def accept_official(index):
     if 0 <= index < len(officials_db):
-        officials_db[index]["status"] = "APPROVED"
+        officials_db[index]["status"] = "ACCEPTED"
 
         # Send email with login link
         login_link = url_for('official_login', _external=True)  # generates full URL to /login
@@ -251,7 +241,7 @@ def approve_official(index):
             login_link=login_link
         )
 
-        flash(f"{officials_db[index]['name']} approved and email sent!")
+        flash(f"{officials_db[index]['name']} accepted and email sent!")
         return redirect(url_for("admin_dashboard"))
     else:
         flash("Invalid official index!")
@@ -268,7 +258,6 @@ def reject_official(index):
     return redirect(url_for("admin_dashboard"))
 
 
-from flask_mail import Message
 def send_approval_email(email, login_link):
     msg = Message(
         "SatyaID Approval",
@@ -278,30 +267,16 @@ def send_approval_email(email, login_link):
 
     msg.html = f"""
     <p>Hello,</p>
-    <p>Your registration has been approved. Click the link below to login:</p>
+    <p>Your registration has been accepted. Click the link below to login:</p>
     <a href="{login_link}">Login Here</a>
     <p>Thank you,<br>Admin Team</p>
     """
 
     mail.send(msg)
 
-# import cv2
-# import pytesseract
-import os
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
-# def extract_text(image_path):
-#     img = cv2.imread(image_path)
-#     if img is None:
-#         return ""
-
-#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-#     text = pytesseract.image_to_string(gray)
-#     return text.lower()
-
-
-@app.route("/official-login", methods=["GET", "POST"])
+@app.route("/official_login", methods=["GET", "POST"])
 def official_login():
     if request.method == "POST":
         email = request.form.get("email")
@@ -311,103 +286,95 @@ def official_login():
             (o for o in officials_db if o["email"] == email and o["password"] == password),
             None
         )
-
+#********************************
         if not official:
-            return "Invalid credentials"
+            flash("Invalid credentials", "error")
+            return redirect(url_for("official_login"))
 
-        if official["status"] != "APPROVED":
-            return "Your account is not approved yet."
+        if official["status"] != "ACCEPTED":
+            flash("Your account is not accepted yet.", "warning")
+            return redirect(url_for("official_login"))
+         
+        session["official_email"] = official["email"]
 
         return redirect(url_for("official_dashboard"))
 
     return render_template("official_login.html")
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('page1'))
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+#*******************LOGOUT LOGIN
+
 #------------------------------------------------------------------------------------------------
-
-import cv2
-import pytesseract
-import os
-from PIL import Image
-import imagehash
-
-
+# MAin LOGIC
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-def extract_text(image_path):
-    img = cv2.imread(image_path)
-    if img is None:
-        return ""
+from backend.modules.text_verification import verify_text
+from backend.modules.template_matching import verify_template
+from backend.modules.face_matching import verify_face
 
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    text = pytesseract.image_to_string(gray)
-    return text.lower()
-
-
-#@app.route("/official-login", methods=["GET", "POST"])
-#def official_login():
-    #if request.method == "POST":
-        #email = request.form.get("email")
-        #password = request.form.get("password")
-
-        #official = next(
-            #(o for o in officials_db if o["email"] == email and o["password"] == password),
-            #None
-        #)
-
-        #if not official:
-            #return "Invalid credentials"
-
-        #if official["status"] != "APPROVED":
-            #return "Your account is not approved yet."
-
-        #return redirect(url_for("official_dashboard"))
-
-    #return render_template("official_login.html")
-
-def get_phash(image_path):
-    img = Image.open(image_path).convert("RGB")
-    return imagehash.phash(img)
-
-
-def is_real_document(uploaded_image, reference_image):
-    uploaded_hash = get_phash(uploaded_image)
-    reference_hash = get_phash(reference_image)
-
-    distance = uploaded_hash - reference_hash
-
-    # Threshold: smaller = more similar
-    if distance <= 10:
-        return True
-    return False
-
+import os
 @app.route("/verify", methods=["POST"])
 def verify_document():
-    file = request.files["document"]
-    doc_type = request.form.get("doc_type")
 
-    upload_path = "uploads/user_upload.png"
+    print("/verify API HIT")
+
+    if "file" not in request.files:
+        return jsonify({
+            "status": "FAILED",
+            "reason": "No file uploaded"
+        })
+
+    file = request.files["file"]
+    print("File received:", file.filename)
+
+    upload_folder = "backend/uploads"
+    os.makedirs(upload_folder, exist_ok=True)
+
+    upload_path = os.path.join(upload_folder, "user_upload.jpg")
     file.save(upload_path)
 
-    if doc_type == "pan":
-        reference = "reference/pan_real.png"
-        status = "Verified" if is_real_document(upload_path, reference) else "Rejected"
-        doc_name = "PAN Card"
+    # STEP 1: TEXT
+    text_result = verify_text(upload_path)
 
-    elif doc_type == "aadhaar":
-        reference = "reference/aadhaar_real.png"
-        status = "Verified" if is_real_document(upload_path, reference) else "Rejected"
-        doc_name = "Aadhaar Card"
+    if text_result["status"] == "FAILED":
+        return jsonify({
+            "status": "FAILED",
+            "reason": text_result["reason"]
+        })
 
-    else:
-        status = "Rejected"
-        doc_name = "Unknown Document"
+    # STEP 2: TEMPLATE
+    template_result = verify_template(upload_path)
 
-    report = {
-        "doc": doc_name,
-        "status": status
-    }
+    if template_result["status"] == "FAILED":
+        return jsonify({
+            "status": "FAILED",
+            "reason": template_result["reason"]
+        })
 
-    return render_template("dashboard.html", report=report)
+    # STEP 3: FACE
+    face_result = verify_face(upload_path, text_result["matched_record"])
+
+    if face_result["status"] == "FAILED":
+        return jsonify({
+            "status": "FAILED",
+            "reason": face_result["reason"]
+        })
+
+    return jsonify({
+        "status": "PASSED",
+        "reason": "All verifications passed"
+    })
+
 
 
 if __name__ == '__main__':

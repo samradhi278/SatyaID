@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,18 +42,15 @@
         }
     </style>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || 
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
             document.documentElement.classList.remove('dark');
-        }
     </script>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen py-10">
+<body class="bg-gray-900 text-gray-100 font-sans antialiased transition-colors duration-300 min-h-screen flex items-center justify-center overflow-x-hidden relative">
 
-    <a href="login.html" class="fixed top-8 left-8 z-50 flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 font-semibold hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 group active:scale-95">
+    <a href="{{ url_for('login') }}" 
+    class="fixed top-8 left-8 z-50 flex items-center gap-2 px-5 py-2.5 bg-gray-800 text-gray-300 rounded-2xl shadow-lg border border-gray-700 font-semibold hover:text-blue-400 transition-all duration-300 group active:scale-95">
+
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -67,149 +64,234 @@
         
         <div class="max-w-lg text-center lg:text-left space-y-8">
             <div class="space-y-4">
-                <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
                     Smart AI <span class="text-blue-600">Verification.</span>
                 </h2>
-                <p class="text-lg text-gray-600 dark:text-gray-400">
+                <p class="text-lg text-gray-400">
                     Upload your Government IDs for instant, tamper-proof verification powered by AI.
                 </p>
             </div>
-
-            <div class="space-y-6">
-                <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">01</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Select Document Type</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Choose the category that matches your ID (Aadhar, PAN, etc.)</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">02</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Upload or Drag & Drop</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Drop your file into the blue zone. We support PDF, PNG, and JPG.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">03</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Instant AI Scan</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Click verify. Our AI will extract data and check for authenticity.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="w-full max-w-md perspective">
-            <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500 border border-gray-100 dark:border-gray-700">
-                
-                <div class="text-center mb-8">
-                    <h1 class="text-4xl font-black tracking-widest italic text-blue-600 dark:text-blue-400 mb-1">SatyaID</h1>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">Secure Document Portal</p>
-                </div>
-
-                <form id="uploadForm" class="space-y-6" enctype="multipart/form-data">
-                    
-                    <div>
-                        <label for="doc_type" class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 ml-1">Document Type</label>
-                        <select id="doc_type" aria-label="Select Document Type"
-                                class="w-full p-4 border border-gray-200 dark:border-gray-700 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white cursor-pointer outline-none transition">
-                            <option value="PAN">PAN Card</option>
-                            <option value="Aadhar">Aadhar Card</option>
-                            <option value="Caste Certificate">Caste Certificate</option>
-                            <option value="PwD Certificate">PwD Certificate</option>
-                        </select>
+            <div class="w-full max-w-md perspective">
+                <div
+                    class="bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500 border border-gray-700">
+            
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl font-black tracking-widest italic text-blue-600 mb-1">SatyaID</h1>
+                        <p class="text-gray-400 text-sm">Secure Document Portal</p>
                     </div>
-
-                    <div id="drop-zone" class="relative group border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-3xl p-8 transition-all duration-300 text-center bg-gray-50 dark:bg-gray-900/50 hover:border-blue-400">
-                        <input type="file" id="file" class="hidden" accept=".pdf,.png,.jpg,.jpeg" required>
-                        
-                        <div class="space-y-2 pointer-events-none">
-                            <div class="text-4xl">📄</div>
-                            <p class="text-2xl font-medium text-gray-700 dark:text-gray-200" id="file-name-display">
-                                Drag & drop your file here
-                            </p>
-                            <p class="text-xl text-gray-400">or <span class="text-blue-600 font-bold">browse files</span></p>
+            
+                    <form id="uploadForm" class="space-y-6" enctype="multipart/form-data">
+            
+                        <div>
+                            <label for="doc_type"
+                                class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 ml-1">Document
+                                Type</label>
+                            <select id="doc_type"
+                                class="w-full p-4 border border-gray-700 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white cursor-pointer outline-none transition">
+            
+                                <option value="" disabled selected>Select Document</option>
+                                <option value="Aadhaar">Aadhaar Card</option>
+                                <option value="PAN">PAN Card</option>
+                            </select>
                         </div>
-                        
-                        <button type="button" onclick="document.getElementById('file').click()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"></button>
-                    </div>
-
-                    <button type="submit" 
+            
+                        <div id="upload-container" class="space-y-6">
+            
+                            <!-- Aadhaar (2 files) -->
+                            <div id="aadhaar-upload" class="hidden space-y-4">
+            
+                                <!-- Front -->
+                                <div
+                                    class="drop-zone border-2 border-dashed border-gray-700 rounded-3xl p-6 text-center bg-gray-900/50 hover:border-blue-400 cursor-pointer">
+                                    <input type="file" id="aadhaar_front" class="hidden" accept=".jpg,.jpeg">
+                                    <div class="flex flex-col items-center">
+                                        <p class="file-name text-blue-400 font-semibold hidden"></p>
+                                        <p class="label text-gray-400">Front Side (.jpg)</p>
+                                    </div>
+                                </div>
+            
+                                <!-- Back -->
+                                <div
+                                    class="drop-zone border-2 border-dashed border-gray-700 rounded-3xl p-6 text-center bg-gray-900/50 hover:border-blue-400 cursor-pointer">
+                                    <input type="file" id="aadhaar_back" class="hidden" accept=".jpg,.jpeg">
+                                    <div class="flex flex-col items-center">
+                                        <p class="file-name text-blue-400 font-semibold hidden"></p>
+                                        <p class="label text-gray-400">Back Side (.jpg)</p>
+                                    </div>
+                                </div>
+            
+                            </div>
+            
+                            <!-- PAN (1 file) -->
+                            <div id="pan-upload" class="hidden">
+                                <div
+                                    class="drop-zone border-2 border-dashed border-gray-700 rounded-3xl p-6 text-center bg-gray-900/50 hover:border-blue-400 cursor-pointer">
+                                    <input type="file" id="pan_file" class="hidden" accept=".jpg,.jpeg">
+                                    <div class="flex flex-col items-center">
+                                        <p class="file-name text-blue-400 font-semibold hidden"></p>
+                                        <p class="label text-gray-400">PAN Card (.jpg)</p>
+                                    </div>
+                                </div>
+                            </div>
+            
+                        </div>
+            
+                        <button type="submit"
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-2xl font-bold shadow-xl transition duration-300 transform active:scale-95">
-                        START VERIFICATION
-                    </button>
-
-                    <div id="resultMessage" class="hidden mt-4 rounded-3xl px-5 py-4 text-white text-sm font-semibold"></div>
-                </form>
+                            START VERIFICATION
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
     <div id="loading" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl text-center border border-gray-100 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl text-center border border-gray-700">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p class="text-gray-800 dark:text-white font-bold">Processing Document...</p>
+            <p class="text-white font-bold">Processing Document...</p>
         </div>
     </div>
 
     <script>
         const uploadForm = document.getElementById('uploadForm');
         const loadingOverlay = document.getElementById('loading');
-        const fileInput = document.getElementById('file');
-        const dropZone = document.getElementById('drop-zone');
-        const fileNameDisplay = document.getElementById('file-name-display');
+        const docType = document.getElementById('doc_type');
 
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            }, false);
-        });
+        const aadhaarUpload = document.getElementById('aadhaar-upload');
+        const panUpload = document.getElementById('pan-upload');
 
-        dropZone.addEventListener('dragover', () => dropZone.classList.add('drag-over'));
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-        dropZone.addEventListener('drop', (e) => {
-            dropZone.classList.remove('drag-over');
-            const files = e.dataTransfer.files;
-            if (files.length) {
-                fileInput.files = files;
-                updateFileName(files[0].name);
+
+        // ✅ SHOW/HIDE BASED ON DOCUMENT TYPE
+        docType.addEventListener('change', () => {
+            aadhaarUpload.classList.add('hidden');
+            panUpload.classList.add('hidden');
+
+            if (docType.value === 'Aadhaar') {
+                aadhaarUpload.classList.remove('hidden');
+            } else if (docType.value === 'PAN') {
+                panUpload.classList.remove('hidden');
             }
         });
 
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) updateFileName(e.target.files[0].name);
+
+        // ✅ DROP ZONE FUNCTIONALITY (FOR ALL BOXES)
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            const input = zone.querySelector('input');
+            const fileName = zone.querySelector('.file-name');
+            const label = zone.querySelector('.label');
+
+            zone.addEventListener('click', () => input.click());
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                zone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+
+            zone.addEventListener('dragover', () => zone.classList.add('drag-over'));
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+
+            zone.addEventListener('drop', (e) => {
+                zone.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+
+                if (files.length) {
+                    input.files = files;
+                    updateUI(files[0]);
+                }
+            });
+
+            input.addEventListener('change', () => {
+                if (input.files.length) {
+                    updateUI(input.files[0]);
+                }
+            });
+
+            function updateUI(file) {
+                fileName.textContent = file.name;
+                fileName.classList.remove('hidden');
+
+                label.classList.remove('text-gray-400');
+                label.classList.add('text-gray-500');
+
+                zone.classList.add('border-blue-500', 'bg-gray-800');
+            }
         });
 
-        function updateFileName(name) {
-            fileNameDisplay.textContent = name;
-            fileNameDisplay.classList.add('text-blue-600', 'font-bold');
-        }
 
+        // ✅ FORM SUBMIT (PAN + AADHAAR LOGIC)
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            loadingOverlay.classList.remove('hidden');
 
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-            formData.append('doc_type', document.getElementById('doc_type').value);
+            const type = docType.value;
+
+            if (!type) {
+                alert("Please select a document type");
+                return;
+            }
+
+            formData.append('doc_type', type);
+
+            // 🔵 AADHAAR
+            if (type === 'Aadhaar') {
+                const front = document.getElementById('aadhaar_front').files[0];
+                const back = document.getElementById('aadhaar_back').files[0];
+
+                if (!front || !back) {
+                    alert("Please upload both Aadhaar front and back");
+                    return;
+                }
+
+                formData.append('front', front);
+                formData.append('back', back);
+            }
+
+            // 🟢 PAN
+            else if (type === 'PAN') {
+                const file = document.getElementById('pan_file').files[0];
+
+                if (!file) {
+                    alert("Please upload PAN card");
+                    return;
+                }
+
+                formData.append('file', file); // ✅ IMPORTANT
+            }
+
+            loadingOverlay.classList.remove('hidden');
 
             try {
                 const res = await fetch('http://127.0.0.1:5000/verify', {
                     method: 'POST',
                     body: formData
                 });
+
                 const data = await res.json();
                 loadingOverlay.classList.add('hidden');
+
                 alert(`Result: ${data.status}`);
+
             } catch (error) {
                 loadingOverlay.classList.add('hidden');
                 alert("Upload failed. Ensure server is running.");
             }
         });
+
+
+        // 🔒 BLOCK BACK NAVIGATION
+        (function () {
+            function blockNavigation() {
+                history.pushState(null, null, location.href);
+            }
+
+            blockNavigation();
+
+            window.addEventListener('popstate', blockNavigation);
+        })();
     </script>
 </body>
 </html>

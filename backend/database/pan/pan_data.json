@@ -1,0 +1,58 @@
+[
+  {
+    "pan": "ABCDE1234F",
+    "name": "rahul kumar",
+    "father": "suresh kumar",
+    "dob": "15/08/1999",
+    "image": "pan1.jpg"
+  },
+  {
+    "pan": "QWERT5678P",
+    "name": "priya mehta",
+    "father": "rakesh mehta",
+    "dob": "10/09/2000",
+    "image": "pan2.jpg"
+  },
+  {
+    "pan": "QRSPL8392K",
+    "name": "amit kumar",
+    "father": "rajesh verma",
+    "dob": "14/03/2001",
+    "image": "pan3.jpg"
+  },
+  {
+    "pan": "PQRSX5678L",
+    "name": "neha verma",
+    "father": "ramesh verma",
+    "dob": "14/02/2002",
+    "image": "pan4.jpg"
+  },
+  {
+    "pan": "LMNOP4321Q",
+    "name": "riya sharma",
+    "father": "sumit sharma",
+    "dob": "15/04/2000",
+    "image": "pan5.jpg"
+  },
+  {
+    "pan": "HKJLO2468M",
+    "name": "arjun mehta",
+    "father": "rakesh mehta",
+    "dob": "01/01/1999",
+    "image": "pan6.jpg"
+  },
+  {
+    "pan": "ZXCVB9876K",
+    "name": "dinesh singh",
+    "father": "sushil singh",
+    "dob": "24/06/2004",
+    "image": "pan7.jpg"
+  },
+  {
+    "pan": "QRSPL8392K",
+    "name": "sneha kapoor",
+    "father": "raj kapoor",
+    "dob": "08/09/1996",
+    "image": "pan8.jpg"
+  }
+]

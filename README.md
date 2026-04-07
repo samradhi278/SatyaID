@@ -18,21 +18,25 @@ infrastructure.
 
 PROJECT STRUCTURE
 ================================================================================
-
-backend/
-├── modules/                    # Core verification modules
-│   ├── text_verification.py   # OCR and text validation
-│   ├── template_matching.py   # Document template validation
-│   ├── face_matching.py       # Face recognition and matching
-│   └── report_generator.py    # Report generation (empty)
-├── utils/                      # Utility functions
-│   ├── helpers.py             # Helper functions (empty)
-│   └── preprocessing.py       # Image preprocessing (empty)
-├── database/                   # Database-related files
-├── models/                     # ML models directory
-├── aadhar_verification.py     # Aadhaar verification module
-└── pan_verification.py        # PAN verification module
-
+```text
+SatyaID
+├───backend
+│   ├───database
+│   │   ├───aadhar
+│   │   │   ├───fake
+│   │   │   └───real
+│   │   └───pan
+│   │       ├───fake
+│   │       └───real
+│   ├───models
+│   ├───modules
+│   │   └───__pycache__
+│   ├───uploads
+│   └───utils
+└───frontend
+    ├───static
+    └───templates
+```
 
 FEATURES
 ================================================================================
@@ -87,9 +91,9 @@ INSTALLATION
 Prerequisites
    - Python 3.1+
    - Tesseract-OCR installed on system
-     Windows: C:\Program Files\Tesseract-OCR\tesseract.exe
-     Linux: sudo apt-get install tesseract-ocr
-     macOS: brew install tesseract
+     - Windows: C:\Program Files\Tesseract-OCR\tesseract.exe
+     - Linux: sudo apt-get install tesseract-ocr
+     - macOS: brew install tesseract
 
 Setup Steps
 
@@ -123,28 +127,28 @@ Document Verification
    - Response: JSON with verification status
 
 Authentication
-   POST /login - User/Official login
-   POST /register - User registration
-   POST /official_register - Official registration
-   GET /logout - Session logout
+  - POST /login - User/Official login
+  - POST /register - User registration
+  - POST /official_register - Official registration
+  - GET /logout - Session logout
 
 User Management
-   GET /user-details - User details page
-   POST /user-details - Save user details
-   GET /dashboard - User dashboard
+  - GET /user-details - User details page
+  - POST /user-details - Save user details
+  - GET /dashboard - User dashboard
 
 Official Management
-   GET /official-details - Official details page
-   POST /official-details - Save official details
-   GET /official_dashboard - Official verification dashboard
-   POST /accept-user/<index> - Approve user
-   POST /reject-user/<index> - Reject user
-   GET /official_login - Official login
+  - GET /official-details - Official details page
+  - POST /official-details - Save official details
+  - GET /official_dashboard - Official verification dashboard
+  - POST /accept-user/<index> - Approve user
+  - POST /reject-user/<index> - Reject user
+  - GET /official_login - Official login
 
 Admin Management
-   GET /admin_dashboard - Admin dashboard
-   GET /accept/<index> - Approve official
-   GET /reject/<index> - Reject official
+  - GET /admin_dashboard - Admin dashboard
+  - GET /accept/<index> - Approve official
+  - GET /reject/<index> - Reject official
 
 
 VERIFICATION PROCESS
@@ -170,13 +174,13 @@ CONFIGURATION
 ================================================================================
 
 Mail Configuration
-   Update email settings in app.py:
+- Update email settings in app.py:
    
-   app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-   app.config['MAIL_PORT'] = 587
-   app.config['MAIL_USE_TLS'] = True
-   app.config['MAIL_USERNAME'] = 'your-email@gmail.com'
-   app.config['MAIL_PASSWORD'] = 'your-app-password'
+   - app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+   - app.config['MAIL_PORT'] = 587
+   - app.config['MAIL_USE_TLS'] = True
+   - app.config['MAIL_USERNAME'] = 'your-email@gmail.com'
+   - app.config['MAIL_PASSWORD'] = 'your-app-password'
 
 Flask Configuration
    - Secret Key: satyaid_secret_key (change in production)

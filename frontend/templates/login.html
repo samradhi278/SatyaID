@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | SatyaID</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
     <style>
-        html { 
-            scroll-behavior: smooth; 
-            -webkit-text-size-adjust: 100%; 
-            text-size-adjust: 100%; 
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
-        
-        .perspective { perspective: 1000px; }
-        
+
+        .perspective {
+            perspective: 1000px;
+        }
+
         .blob {
             position: absolute;
             width: 600px;
@@ -31,94 +29,126 @@
         }
 
         @keyframes move {
-            from { transform: translate(-10%, -10%) rotate(0deg); }
-            to { transform: translate(15%, 15%) rotate(10deg); }
+            from {
+                transform: translate(-10%, -10%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(15%, 15%) rotate(10deg);
+            }
         }
     </style>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || 
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        // Force dark theme always
+        document.documentElement.classList.add('dark');
     </script>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 min-h-screen flex items-center justify-center overflow-x-hidden">
+<body
+    class="bg-gray-900 text-white font-sans antialiased transition-colors duration-300 min-h-screen flex items-center justify-center overflow-x-hidden">
 
     <div class="blob" style="top: -10%; left: -5%;"></div>
     <div class="blob" style="bottom: -10%; right: -5%; animation-delay: -5s;"></div>
 
-    <div class="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-center gap-16 relative z-10">
-        
+    <div
+        class="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-center gap-16 relative z-10">
+
         <div class="max-w-lg text-center lg:text-left space-y-8">
             <div class="space-y-4">
-                <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
                     Verify with <span class="text-blue-600">Confidence.</span>
                 </h2>
-                <p class="text-lg text-gray-600 dark:text-gray-400">
+                <p class="text-lg text-gray-400">
                     Access an AI-powered security-first digital identity platform for instant document verification.
                 </p>
             </div>
 
             <div class="space-y-6">
                 <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">01</div>
+                    <div class="bg-blue-900/30 p-3 rounded-xl text-blue-400 font-bold">01</div>
                     <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Enter Username</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Provide your unique SatyaID or registered username.</p>
+                        <h4 class="font-bold text-gray-200">Enter Username</h4>
+                        <p class="text-sm text-gray-400">Provide your unique SatyaID or registered username.</p>
                     </div>
                 </div>
 
                 <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">02</div>
+                    <div class="bg-blue-900/30 p-3 rounded-xl text-blue-400 font-bold">02</div>
                     <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Enter Password</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Input your secure password to authenticate your identity.</p>
+                        <h4 class="font-bold text-gray-200">Enter Password</h4>
+                        <p class="text-sm text-gray-400">Input your secure password to authenticate your identity.</p>
                     </div>
                 </div>
 
                 <div class="flex items-start gap-4">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl text-blue-600 dark:text-blue-400 font-bold">03</div>
+                    <div class="bg-blue-900/30 p-3 rounded-xl text-blue-400 font-bold">03</div>
                     <div>
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Select Role & Login</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Choose your access level and click login to enter the dashboard.</p>
+                        <h4 class="font-bold text-gray-200">Select Role & Login</h4>
+                        <p class="text-sm text-gray-400">Choose your access level and click login to enter the
+                            dashboard.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-4 flex items-center justify-center lg:justify-start gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <span class="w-8 h-px bg-gray-300 dark:bg-gray-700"></span>
+            <div
+                class="pt-4 flex items-center justify-center lg:justify-start gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                <span class="w-8 h-px bg-gray-700"></span>
                 Built for Accuracy, Speed & Trust
             </div>
         </div>
 
         <div class="w-full max-w-md perspective">
-            <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500 border border-gray-100 dark:border-gray-700">
-                
+            <div
+                class="bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.01] transition duration-500 border border-gray-700">
+
                 <div class="text-center mb-8">
-                    <h1 class="text-4xl font-black tracking-widest italic text-blue-600 dark:text-blue-400 mb-1">SatyaID</h1>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your account</p>
+                    <h1 class="text-4xl font-black tracking-widest italic text-blue-400 mb-1">SatyaID</h1>
+                    <p class="text-gray-400 text-sm">Sign in to your account</p>
                 </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="mb-4 space-y-2">
+                    {% for category, message in messages %}
+                    <div class="
+                    px-4 py-3 rounded-xl font-semibold text-sm
+                    {% if category == 'error' %} bg-red-900/30 text-red-400
+                    {% elif category == 'warning' %} bg-yellow-900/30 text-yellow-400
+                    {% else %} bg-blue-900/30 text-blue-400 {% endif %}
+                ">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+
+
 
                 <form method="POST" onsubmit="showPopup(event)" class="space-y-4">
                     <div>
                         <input type="text" name="name" placeholder="Username / ID"
-                               class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white outline-none transition"
-                               required>
+                            class="w-full border border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white outline-none transition"
+                            required>
                     </div>
 
-                    <div>
-                        <input type="password" name="password" placeholder="Password"
-                               class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white outline-none transition"
-                               required>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" placeholder="Password"
+                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$"
+                            title="Password must be at least 8 characters long, include at least 1 digit and 1 special character"
+                            class="w-full border border-gray-700 p-4 pr-12 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white outline-none transition"
+                            required>
+                        <button type="button" onclick="togglePassword()"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                            <span id="toggleText">Show</span>
+                        </button>
                     </div>
 
                     <div>
                         <select name="role" aria-label="Select User Role"
-                                class="w-full border border-gray-200 dark:border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-700 dark:text-white cursor-pointer outline-none transition"
-                                required>
+                            class="w-full border border-gray-700 p-4 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white cursor-pointer outline-none transition"
+                            required>
                             <option value="">Select Role</option>
                             <option value="User">User</option>
                             <option value="Official">Official</option>
@@ -131,10 +161,7 @@
                     </button>
 
                     <div class="mt-6 text-center space-y-3 text-sm">
-                        <a href="#" class="block text-gray-500 dark:text-gray-400 hover:underline">
-                            Forgot Password?
-                        </a>
-                        <a href="{{ url_for('page1') }}" class="block text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                        <a href="{{ url_for('page1') }}" class="block text-blue-400 font-bold hover:underline">
                             New user? Register here
                         </a>
                     </div>
@@ -144,21 +171,42 @@
     </div>
 
     <div id="popup" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl text-center border border-gray-100 dark:border-gray-700 mx-4">
+        <div class="bg-gray-800 p-8 rounded-3xl shadow-2xl text-center border border-gray-700 mx-4">
             <div class="text-4xl mb-4">✅</div>
-            <h2 class="text-2xl font-black text-green-600 dark:text-green-400 mb-2">Login Successful</h2>
-            <p class="text-gray-500 dark:text-gray-400">Redirecting to dashboard...</p>
+            <h2 class="text-2xl font-black text-green-400 mb-2">Login Successful</h2>
+            <p class="text-gray-400">Redirecting to dashboard...</p>
         </div>
     </div>
 
     <script>
         function showPopup(event) {
             event.preventDefault();
+            const password = document.getElementById('password').value;
+            const pattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+
+            if (!pattern.test(password)) {
+                alert("Password must be at least 8 characters long and include at least 1 digit and 1 special character.");
+                return;
+            }
             document.getElementById('popup').classList.remove('hidden');
             setTimeout(() => {
                 event.target.submit();
             }, 1500);
         }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleText = document.getElementById('toggleText');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleText.innerText = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleText.innerText = 'Show';
+            }
+        }
     </script>
 </body>
+
 </html>

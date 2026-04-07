@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,51 @@
         tailwind.config = {
             darkMode: 'class',
         }
+
+        function showPopup(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const pattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+
+            if (!pattern.test(password)) {
+                alert("Password must be at least 8 characters long and include at least 1 digit and 1 special character.");
+                return;
+            }
+
+            document.getElementById('popup').classList.remove('hidden');
+            setTimeout(() => {
+                event.target.submit();
+            }, 1800);
+        }
+
+        function submitForm() {
+            document.getElementById('popup').classList.add('hidden');
+            document.querySelector("form").submit();
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleText = document.getElementById('toggleText');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleText.innerText = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleText.innerText = 'Show';
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').classList.add('hidden');
+        }
     </script>
+
     <style>
-        .perspective { perspective: 1000px; }
+        .perspective {
+            perspective: 1000px;
+        }
+
         .blob {
             position: absolute;
             width: 500px;
@@ -22,31 +65,47 @@
             z-index: -1;
             animation: move 20s infinite alternate;
         }
+
         @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
+            from {
+                transform: translate(-10%, -10%);
+            }
+
+            to {
+                transform: translate(20%, 20%);
+            }
         }
+
         .float-anim {
             animation: float 5s ease-in-out infinite;
         }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
         }
     </style>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 h-screen overflow-hidden flex items-center justify-center p-4">
+<body
+    class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 h-screen overflow-y-auto overflow-x-hidden flex items-start justify-center pt-16 p-4">
 
     <div class="blob" style="top: -10%; left: -10%;"></div>
     <div class="blob" style="bottom: -10%; right: -10%; animation-delay: -5s;"></div>
 
-    <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 items-center gap-12 relative z-10 -translate-x-3">
-        
+    <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 items-center gap-12 relative z-10">
+
         <div class="hidden lg:flex flex-col items-center justify-center space-y-6 lg:order-2">
             <div class="text-center space-y-4">
                 <h2 class="text-5xl font-black text-gray-800 dark:text-white leading-tight">
-                    Institutional <br> 
+                    Institutional <br>
                     <span class="text-blue-600 dark:text-blue-400">Verification.</span>
                 </h2>
                 <p class="text-gray-500 dark:text-gray-400 text-lg max-w-sm mx-auto">
@@ -63,48 +122,82 @@
                         </linearGradient>
                     </defs>
                     <path d="M40 180 L120 40 L200 180 Z" fill="url(#instGrad)" opacity="0.1" />
-                    <circle cx="120" cy="80" r="25" fill="#1e293b" class="dark:fill-gray-400"/>
-                    <path d="M70 190 C70 150 90 130 120 130 C150 130 170 150 170 190 L170 200 L70 200 Z" fill="#1e293b" class="dark:fill-gray-400"/>
-                    <path d="M120 120 L145 135 L145 160 L120 175 L95 160 L95 135 Z" fill="#3b82f6" stroke="white" stroke-width="3"/>
-                    <path d="M110 148 L117 155 L132 140" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="120" cy="80" r="25" fill="#1e293b" class="dark:fill-gray-400" />
+                    <path d="M70 190 C70 150 90 130 120 130 C150 130 170 150 170 190 L170 200 L70 200 Z" fill="#1e293b"
+                        class="dark:fill-gray-400" />
+                    <path d="M120 120 L145 135 L145 160 L120 175 L95 160 L95 135 Z" fill="#3b82f6" stroke="white"
+                        stroke-width="3" />
+                    <path d="M110 148 L117 155 L132 140" stroke="white" stroke-width="3" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </div>
         </div>
 
         <div class="w-full max-w-lg mx-auto perspective lg:order-1">
-            <div class="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
-                
+            <div
+                class="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700">
+
                 <div class="mb-6">
-                    <h1 class="text-4xl font-black tracking-widest italic text-blue-700 dark:text-blue-400 mb-1">SatyaID</h1>
-                    <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-[10px] font-bold">Official University Portal</p>
+                    <h1 class="text-4xl font-black tracking-widest italic text-blue-700 dark:text-blue-400 mb-1">SatyaID
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-[10px] font-bold">Official
+                        University Portal</p>
                 </div>
 
-                <form method="POST" enctype="multipart/form-data" class="space-y-3">
+                <form method="POST" enctype="multipart/form-data" onsubmit="showPopup(event)" class="space-y-3">
                     <div class="grid grid-cols-3 gap-3">
-                        <input name="name" type="text" placeholder="Official Name" class="col-span-1 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
-                        <input name="email" type="email" placeholder="Official Email" class="col-span-2 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                        <input name="name" type="text" placeholder="Official Name"
+                            class="col-span-1 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                            required>
+                        <input name="email" type="email" placeholder="Official Email"
+                            class="col-span-2 w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                            required>
                     </div>
 
-                    <input name="password" type="password" placeholder="Password" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" placeholder="Password"
+                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$"
+                            title="Password must be at least 8 characters long, include at least 1 digit and 1 special character"
+                            class="w-full border border-gray-700 p-4 pr-12 rounded-2xl focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white outline-none transition"
+                            required>
+                        <button type="button" onclick="togglePassword()"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                            <span id="toggleText">Show</span>
+                        </button>
+                    </div>
 
                     <div class="h-px bg-gray-100 dark:bg-gray-700 my-2"></div>
 
-                    <input name="university" type="text" placeholder="University Name" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
-                    <input name="university_email" type="email" placeholder="University Email" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                    <input name="university" type="text" placeholder="University Name"
+                        class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                        required>
+                    <input name="university_email" type="email" placeholder="University Email"
+                        class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                        required>
 
                     <div class="grid grid-cols-2 gap-3">
-                        <input name="gstin" type="text" placeholder="GSTIN ID" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
-                        <input name="aishe" type="text" placeholder="AISHE Code" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none" required>
+                        <input name="gstin" type="text" placeholder="GSTIN ID"
+                            class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                            required>
+                        <input name="aishe" type="text" placeholder="AISHE Code"
+                            class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none"
+                            required>
                     </div>
 
                     <div>
-                        <label class="text-[12px] uppercase tracking-widest text-gray-400 ml-2 mb-1 block">Upload UGC Letter (PDF)</label>
-                        <input type="file" name="ugc_letter" class="w-full bg-gray-50 dark:bg-gray-700 border border-dashed border-gray-300 dark:border-gray-600 p-2 rounded-xl text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 dark:file:bg-gray-600 dark:file:text-gray-200" required>
+                        <label class="text-[12px] uppercase tracking-widest text-gray-400 ml-2 mb-1 block">Upload UGC
+                            Letter (PDF)</label>
+                        <input type="file" name="ugc_letter"
+                            class="w-full bg-gray-50 dark:bg-gray-700 border border-dashed border-gray-300 dark:border-gray-600 p-2 rounded-xl text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 dark:file:bg-gray-600 dark:file:text-gray-200"
+                            required>
                     </div>
 
-                    <textarea name="address" rows="2" placeholder="University Address" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none resize-none" required></textarea>
+                    <textarea name="address" rows="2" placeholder="University Address"
+                        class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-3 rounded-xl focus:ring-2 focus:ring-blue-400 dark:text-white outline-none resize-none"
+                        required></textarea>
 
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-sm">
+                    <button
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 uppercase tracking-widest text-sm">
                         Submit for Approval
                     </button>
                 </form>
@@ -112,20 +205,40 @@
                 <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 text-center">
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         Already have an account?
-                        <a href="{{ url_for('login') }}" class="text-blue-600 dark:text-blue-400 font-bold hover:underline ml-1">Login
+                        <a href="{{ url_for('login') }}"
+                            class="text-blue-600 dark:text-blue-400 font-bold hover:underline ml-1">Login
                             here</a>
                     </p>
                 </div>
-
 
             </div>
         </div>
     </div>
 
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
+    <div id="popup" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-blue-900/40 backdrop-blur-sm"></div>
+
+        <div
+            class="bg-gray-800 p-8 rounded-[2rem] shadow-2xl text-center relative z-10 border border-blue-900/30 max-w-xs w-full">
+
+            <div class="w-16 h-16 bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <h2 class="text-2xl font-black text-white mb-2">Submitted for Review</h2>
+            <p class="text-gray-400 text-sm">
+                Your application is under approval.
+            </p>
+
+            <button onclick="submitForm()"
+                class="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-bold">
+                OK
+            </button>
+        </div>
+    </div>
+
 </body>
+
 </html>

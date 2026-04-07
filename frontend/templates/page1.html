@@ -1,270 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SatyaID | Fake Document Detection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
     <style>
-        .perspective { perspective: 1000px; }
-        html { scroll-behavior: smooth; }
-        
-        /* Animated background blobs to fill empty space */
-        .blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
-            animation: move 20s infinite alternate;
+        * {
+            box-sizing: border-box;
         }
 
+        body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
+        .perspective {
+            perspective: 1000px;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        header {
+            box-sizing: border-box;
+            /* prevents overflow due to padding */
+        }
+
+
         @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
+            from {
+                transform: translate(-10%, -10%);
+            }
+
+            to {
+                transform: translate(20%, 20%);
+            }
         }
     </style>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300">
+<body
+    class="font-sans antialiased text-white bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.25),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(37,99,235,0.2),transparent_40%),linear-gradient(135deg,#0a0f1f,#0f172a,#020617)]">
 
-    <header class="bg-blue-700/90 dark:bg-blue-900/90 backdrop-blur-md text-white shadow-xl fixed top-0 w-full z-50">
+
+    <header
+        class="bg-gradient-to-r from-blue-800 via-blue-850 to-blue-950 backdrop-blur-md text-white shadow-xl fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex flex-col">
                 <span class="text-4xl font-black tracking-widest italic">SatyaID</span>
-                <span class="text-[15px] uppercase tracking-[0.2em] text-blue-200 hidden md:block">Stop Frauds Before They Happen</span>
+                <span class="text-[15px] uppercase tracking-[0.2em] text-blue-200 hidden md:block">Stop Frauds Before
+                    They Happen</span>
             </div>
 
             <div class="flex items-center space-x-6">
-                <a href="#contact" class="text-sm font-bold hover:text-blue-200 transition-colors uppercase tracking-widest">Contact Us</a>
-                <button id="theme-toggle" class="p-2 rounded-xl bg-blue-600 dark:bg-blue-800 border border-blue-400/30 shadow-lg">
-                    <svg id="sun-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
-                    <svg id="moon-icon" class="w-5 h-5 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                </button>
+                <a href="#contact"
+                    class="text-2xl font-bold hover:text-blue-200 transition-colors uppercase tracking-widest">Contact
+                    Us</a>
             </div>
         </div>
     </header>
 
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden px-4">
-        <div class="blob" style="top: 10%; left: -10%;"></div>
-        <div class="blob" style="bottom: 10%; right: -10%; animation-delay: -5s;"></div>
+
 
         <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
+
             <div class="hidden lg:block space-y-6">
-                <h2 class="text-blue-600 dark:text-blue-400 font-black text-6xl leading-tight">
-                    Smart Verification. <br> <span class="text-gray-900 dark:text-white">Zero Forgery.</span>
+                <h2
+                    class="font-black text-6xl leading-tight bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-transparent bg-clip-text">
+                    Smart Verification. <br> <span class="text-white">Zero Forgery.</span>
                 </h2>
-                <p class="text-gray-600 dark:text-gray-400 text-lg max-w-md leading-relaxed">
-                    Protect your organization with India's most advanced AI-driven document authentication system for Aadhaar, PAN, and more.
+                <p class="text-gray-400 text-lg max-w-md leading-relaxed">
+                    Protect your organization with India's most advanced AI-driven document authentication system for
+                    Aadhaar, PAN, and more.
                 </p>
                 <div class="flex space-x-4">
                     <div class="flex -space-x-2">
-                        </div>
-                    
+                    </div>
+
                 </div>
             </div>
 
             <div class="w-full max-w-sm mx-auto perspective">
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl transform hover:scale-[1.02] transition duration-500 border border-gray-100 dark:border-gray-700 relative z-10">
-                    <img src="{{ url_for('static', filename='image.png') }}" alt="SatyaID Logo" class="mx-auto w-32 mb-6">
+                <div
+                    class="bg-gray-800 p-8 rounded-3xl shadow-2xl shadow-blue-900/20 hover:shadow-blue-900/90 transform hover:scale-[1.02] transition duration-500 border border-gray-700 relative z-10">
+                    <img src="{{ url_for('static', filename='image.png') }}" alt="SatyaID Logo"
+                        class="mx-auto w-32 mb-6">
                     <div class="text-center mb-8">
-                        <h1 class="text-4xl font-black tracking-widest italic text-blue-600 dark:text-blue-400 mb-1">SatyaID</h1>
-                        <!-- <h1 class="text-3xl text-blue-600 dark:text-blue-400 font-bold mb-1">SatyaID</h1> -->
-                        <p class="text-blue-500 dark:text-blue-300 text-sm">Fake Document Detection System</p>
+                        <h1 class="text-4xl font-black tracking-widest italic text-blue-500 mb-1">SatyaID</h1>
+
+                        <p class="text-blue-300 text-sm">Fake Document Detection System</p>
                     </div>
                     <form action="/next" method="POST" class="space-y-4">
-                        <select name="role" class="w-full border border-gray-300 dark:border-gray-600 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white dark:bg-gray-700 dark:text-white cursor-pointer" required>
+                        <select name="role"
+                            class="w-full border border-gray-600 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  bg-gray-700 text-white cursor-pointer"
+                            required>
                             <option value="">Select Role</option>
                             <option value="User">User</option>
                             <option value="Official">Official</option>
                         </select>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-blue-700 transition duration-300">NEXT</button>
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-blue-700 hover:scale-[1.02]  transition duration-300">NEXT</button>
                     </form>
                     <div class="relative flex py-6 items-center">
-                        <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                        <div class="flex-grow border-t border-gray-700"></div>
                         <span class="flex-shrink mx-4 text-gray-400 text-xs uppercase tracking-widest">or</span>
-                        <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                        <div class="flex-grow border-t border-gray-700"></div>
                     </div>
-                    <button onclick="window.location.href='/login'" class="w-full border border-gray-300 dark:border-gray-600 py-3 rounded-xl font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition">LOGIN</button>
+                    <button onclick="window.location.href='/login'"
+                        class="w-full border border-gray-600 py-3 rounded-xl font-semibold text-gray-300 hover:bg-gray-700 transition">LOGIN</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-white dark:bg-gray-900 py-24 relative overflow-hidden">
+    <section class="py-24 relative overflow-hidden ">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-5xl font-black text-center text-gray-800 dark:text-white mb-16">Documents We Verify</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 hover:-translate-y-2">
+
+            <h2 class="text-5xl font-serif text-center text-white mb-16">Documents We Verify</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <div
+                    class="bg-gray-800/60 p-8 rounded-3xl border border-gray-700 hover:shadow-2xl hover:shadow-blue-500/10 transition duration-300 hover:-translate-y-2">
                     <div class="text-4xl mb-4">💳</div>
-                    <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">PAN Card</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">AI-driven texture and font analysis.</p>
+                    <h3 class="font-bold text-xl mb-2 text-white">PAN Card</h3>
+                    <p class="text-gray-400 text-sm">AI-driven texture and font analysis.</p>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 hover:-translate-y-2">
+                <div
+                    class="bg-gray-800/60 p-8 rounded-3xl border border-gray-700 hover:shadow-2xl hover:shadow-blue-500/10 transition duration-300 hover:-translate-y-2">
                     <div class="text-4xl mb-4">🆔</div>
-                    <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">Aadhaar</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Biometric & QR structural verification.</p>
+                    <h3 class="font-bold text-xl mb-2 text-white">Aadhaar</h3>
+                    <p class="text-gray-400 text-sm">Smart AI detection of structural inconsistencies and tampering.</p>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 hover:-translate-y-2">
+            </div>
+        </div>
+    </section>
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-serif text-center text-white mb-6">
+                Future Expansion
+            </h2>
+            <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
+                We're continuously improving SatyaID. Upcoming features will expand support for additional
+                government-issued documents.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+                <!-- PwD -->
+                <div
+                    class="bg-gray-800/40 p-8 rounded-3xl border border-gray-700 opacity-70 hover:opacity-100 transition duration-300">
                     <div class="text-4xl mb-4">♿</div>
-                    <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">PwD</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Disability claim validation scanning.</p>
+                    <h3 class="font-bold text-xl mb-2 text-white">PwD Certificate</h3>
+                    <p class="text-gray-400 text-sm">
+                        Planned AI validation for disability certification authenticity.
+                    </p>
+                    <span class="text-xs text-blue-400 mt-2 inline-block">Coming Soon</span>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 hover:-translate-y-2">
+
+                <!-- Caste -->
+                <div
+                    class="bg-gray-800/40 p-8 rounded-3xl border border-gray-700 opacity-70 hover:opacity-100 transition duration-300">
                     <div class="text-4xl mb-4">📜</div>
-                    <h3 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">Caste</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">State-level cross-referencing.</p>
+                    <h3 class="font-bold text-xl mb-2 text-white">Caste Certificate</h3>
+                    <p class="text-gray-400 text-sm">
+                        Future integration with state-level verification systems.
+                    </p>
+                    <span class="text-xs text-blue-400 mt-2 inline-block">Coming Soon</span>
                 </div>
+
             </div>
         </div>
     </section>
 
 
 
-    
-    <section id="faq" class="py-24 bg-white dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-5xl font-serif font-bold text-center text-gray-900 dark:text-white mb-16">Frequently asked questions</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="space-y-4">
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">How long does it take to verify a document?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        Verification usually takes 5 seconds, with longer multi-page documents taking up to 15 seconds.
-                    </div>
-                </div>
 
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">What types of documents can SatyaID analyze?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        We currently support PAN cards, Aadhaar, PwD certificates, and Caste certificates.
-                    </div>
-                </div>
+    <section id="faq" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-serif font-bold text-center text-white mb-16">Frequently asked questions</h2>
 
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">What happens if a document is flagged as suspicious?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        The system provides a detailed report highlighting tampered metadata, font inconsistencies, or structural errors.
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">Is my data secure with SatyaID?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        Yes. All documents are encrypted at rest, processed in isolated environments, and deleted after the retention period.
-                    </div>
-                </div>
-
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">Can I integrate SatyaID into my document review pipelines?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        Yes, we offer a robust API for seamless integration into existing enterprise workflows.
-                    </div>
-                </div>
-
-                <div class="faq-item group">
-                    <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-6 bg-blue-50/50 dark:bg-gray-800 rounded-lg text-left transition-all hover:bg-blue-50 dark:hover:bg-gray-700">
-                        <span class="text-gray-800 dark:text-gray-200 font-medium">Can you handle documents that are not in English?</span>
-                        <svg class="w-5 h-5 text-blue-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div class="faq-content hidden p-6 text-gray-600 dark:text-gray-400 bg-blue-50/20 rounded-b-lg -mt-2">
-                        Yes, our AI supports multiple regional Indian languages for structural and text verification.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script>
-    function toggleFAQ(button) {
-        const content = button.nextElementSibling;
-        const icon = button.querySelector('svg');
-        
-        // Toggle Visibility
-        content.classList.toggle('hidden');
-        
-        // Rotate Icon
-        if (content.classList.contains('hidden')) {
-            icon.style.transform = 'rotate(0deg)';
-        } else {
-            icon.style.transform = 'rotate(180deg)';
-        }
-    }
-</script>
-
-
-
-
-    <section id="contact" class="bg-gray-50 dark:bg-gray-950 py-24">
-        <div class="max-w-5xl mx-auto px-6 bg-white dark:bg-gray-800 p-12 rounded-[3rem] shadow-2xl border border-gray-100 dark:border-gray-700">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-4xl font-black text-gray-800 dark:text-white mb-4">Let's Secure Your Data</h2>
-                    <p class="text-gray-500 mb-8">Have questions? Reach out to our technical team.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4">
-                            <span class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl">📧</span>
-                            <span class="dark:text-gray-300 font-medium">support@satyaid.com</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-4">
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">How long does it take to verify a document?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            Verification usually takes 5 seconds, with longer multi-page documents taking up to 15
+                            seconds.
                         </div>
-                        <div class="flex items-center space-x-4">
-    <span class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl">📞</span>
-    <span class="dark:text-gray-300 font-medium">+91 98765 43210</span>
-</div>
+                    </div>
+
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">What types of documents can SatyaID analyze?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            We currently support PAN cards and Aadhaar. Support for PwD and Caste certificates is
+                            planned in upcoming updates.
+                        </div>
+                    </div>
+
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">What happens if a document is flagged as
+                                suspicious?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            The system provides a detailed report highlighting tampered metadata, font inconsistencies,
+                            or structural errors.
+                        </div>
                     </div>
                 </div>
-                <form class="space-y-4">
-    <input type="text" placeholder="Name" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-700 dark:text-white border-none outline-none focus:ring-2 focus:ring-blue-500">
-    <input type="email" placeholder="Email" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-700 dark:text-white border-none outline-none focus:ring-2 focus:ring-blue-500">
-    
-    <textarea placeholder="Your Message" rows="4" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-700 dark:text-white border-none outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
-    
-    <button class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 transition">Send Message</button>
-</form>
+
+                <div class="space-y-4">
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">Is my data secure with SatyaID?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            Yes. All documents are encrypted at rest, processed in isolated environments, and deleted
+                            after the retention period.
+                        </div>
+                    </div>
+
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">Can I integrate SatyaID into my document review
+                                pipelines?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            Yes, we offer a robust API for seamless integration into existing enterprise workflows.
+                        </div>
+                    </div>
+
+                    <div class="faq-item group">
+                        <button onclick="toggleFAQ(this)"
+                            class="w-full flex justify-between items-center p-6 bg-gray-800 rounded-lg text-left transition-all hover:bg-gray-700">
+                            <span class="text-gray-200 font-medium">Can you handle documents that are not in
+                                English?</span>
+                            <svg class="w-5 h-5 text-blue-500 transform transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-6 text-gray-400 bg-gray-800 rounded-b-lg -mt-2">
+                            Yes, our AI supports multiple regional Indian languages for structural and text
+                            verification.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <script>
-        const themeToggle = document.getElementById('theme-toggle');
-const htmlElement = document.documentElement;
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
 
-themeToggle.addEventListener('click', () => {
-    // Toggle the class
-    if (htmlElement.classList.contains('dark')) {
-        htmlElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-    } else {
-        htmlElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    }
-});
+            // Toggle Visibility
+            content.classList.toggle('hidden');
+
+            // Rotate Icon
+            if (content.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
     </script>
+
+
+
+
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-5xl mx-auto px-6 bg-gray-800 p-12 rounded-[3rem] shadow-2xl border border-gray-700">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-black tracking-wide text-white mb-4">Let's Secure Your Data</h2>
+                    <p class="text-gray-350  mb-10">Have questions? Reach out to our technical team.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="p-3 bg-blue-900/30 text-blue-600 rounded-2xl">📧</span>
+                            <span class="text-gray-300 font-medium">support@satyaid.com</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="p-3 bg-blue-900/30 text-blue-600 rounded-2xl">📞</span>
+                            <span class="text-gray-300 font-medium">+91 98765 43210</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="space-y-4">
+                    <input type="text" placeholder="Name"
+                        class="w-full p-4 rounded-2xl bg-gray-700 text-white border-none outline-none focus:ring-2 focus:ring-blue-500">
+
+                    <input type="email" placeholder="Email"
+                        class="w-full p-4 rounded-2xl bg-gray-700 text-white border-none outline-none focus:ring-2 focus:ring-blue-500">
+
+                    <textarea placeholder="Your Message"
+                        class="w-full p-4 rounded-2xl bg-gray-700 text-white border-none outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                    <button
+                        class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 hover:scale-[1.02] transition">Send
+                        Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,115 +10,158 @@
         tailwind.config = { darkMode: 'class' }
     </script>
     <style>
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
+
         .blob {
-            position: fixed; width: 600px; height: 600px;
+            position: fixed;
+            width: 600px;
+            height: 600px;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(29, 78, 216, 0.1) 100%);
-            filter: blur(80px); border-radius: 50%; z-index: -1;
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
             animation: move 25s infinite alternate;
         }
+
         @keyframes move {
-            from { transform: translate(-10%, -10%) rotate(0deg); }
-            to { transform: translate(15%, 15%) rotate(10deg); }
+            from {
+                transform: translate(-10%, -10%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(15%, 15%) rotate(10deg);
+            }
         }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .dark .glass-card { background: rgba(31, 41, 55, 0.9); }
-        .sidebar-btn.active { 
-            background-color: #2563eb; 
-            color: white; 
+
+        .glass-card {
+            background: rgba(31, 41, 55, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-btn.active {
+            background-color: #2563eb;
+            color: white;
             box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
         }
     </style>
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased transition-colors duration-300 min-h-screen flex overflow-hidden">
+<body class="bg-gray-900 font-sans antialiased transition-colors duration-300 min-h-screen flex overflow-hidden">
 
     <div class="blob" style="top: -10%; left: -5%;"></div>
     <div class="blob" style="bottom: -10%; right: -5%; animation-delay: -5s;"></div>
 
-    <aside class="w-72 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-r border-gray-200 dark:border-gray-700 flex flex-col p-6 z-20">
+    <aside class="w-72 bg-gray-800/80 backdrop-blur-xl border-r border-gray-700 flex flex-col p-6 z-20">
         <div class="mb-10">
-            <h2 class="text-4xl font-black tracking-widest italic text-blue-600 dark:text-blue-400 mb-1">Satya<span class="text-blue-600">ID</span></h2>
+            <h2 class="text-4xl font-black tracking-widest italic text-blue-400 mb-1">Satya<span
+                    class="text-blue-400">ID</span></h2>
         </div>
 
         <nav class="flex flex-col gap-3 flex-1">
-            <button onclick="switchTab('pending')" id="btn-pending" class="sidebar-btn active flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-all duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <button onclick="switchTab('pending')" id="btn-pending"
+                class="sidebar-btn active flex items-center gap-3 px-4 py-3 rounded-2xl font-bold transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Pending Requests
             </button>
 
-            <button onclick="switchTab('approved')" id="btn-approved" class="sidebar-btn flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <button onclick="switchTab('accepted')" id="btn-accepted"
+                class="sidebar-btn flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-gray-400 hover:bg-gray-700/50 transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Approved Users
+                Accepted Users
             </button>
         </nav>
 
-        <button onclick="toggleLogoutModal(true)" class="flex items-center gap-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-4 py-3 rounded-2xl font-bold transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
+        <button onclick="toggleLogoutModal(true)"
+            class="flex items-center gap-2 bg-red-900/20 hover:bg-red-900/30 text-red-400 px-4 py-3 rounded-2xl font-bold transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
             LOGOUT
         </button>
     </aside>
 
     <main class="flex-1 overflow-y-auto relative z-10 p-12">
-        
+
         <div class="flex items-start justify-between mb-10">
             <div>
-                <h1 id="page-title" class="text-5xl font-black text-gray-900 dark:text-white tracking-tight">
-                    Pending <span class="text-blue-600">Requests</span>
+                <h1 id="page-title" class="text-5xl font-black text-white tracking-tight">
+                    Pending <span class="text-blue-500">Requests</span>
                 </h1>
-                <p class="text-xl text-gray-500 dark:text-gray-400 mt-2">Manage and verify users</p>
+                <p class="text-xl text-gray-400 mt-2">Manage and verify users</p>
             </div>
-            
-            <div class="relative max-w-sm w-full">
-                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </span>
-                <input type="text" id="searchInput" onkeyup="filterDash()" placeholder="Search records..." 
-                    class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none transition dark:text-white">
+
+            <div class="flex gap-3 items-center">
+                <div class="relative max-w-sm w-full">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
+                    <input type="text" id="searchInput" onkeyup="filterDash()" placeholder="Search records..."
+                        class="w-full pl-12 pr-4 py-3 rounded-2xl bg-gray-800 border border-gray-700 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none transition text-white">
+                </div>
+
+                <button onclick="exportCSV()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-3 rounded-2xl shadow-lg">
+                    Export CSV
+                </button>
             </div>
         </div>
 
         <div id="section-pending" class="tab-content">
-            <div class="glass-card rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="glass-card rounded-3xl shadow-xl border border-gray-700 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Applicant Name</th>
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-center">Application No</th>
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-center">Document</th>
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-center">Action</th>
+                            <tr class="bg-gray-800/50 border-b border-gray-700">
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400">Applicant Name
+                                </th>
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400 text-center">
+                                    Application No</th>
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400 text-center">
+                                    Action</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <tbody class="divide-y divide-gray-700">
                             {% for user in pending_users %}
-                            <tr class="search-row hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition duration-200">
-                                <td class="p-5 font-bold text-gray-800 dark:text-gray-200">{{ user.name }}</td>
-                                <td class="p-5 text-center font-mono text-sm text-gray-600 dark:text-gray-400">{{ user.application_no }}</td>
-                                <td class="p-5 text-center">
-                                    <button class="text-blue-600 dark:text-blue-400 hover:underline font-bold text-xs">View File</button>
+                            <tr class="search-row hover:bg-blue-900/10 transition duration-200">
+                                <td class="p-5 font-bold text-gray-200">{{ user.name }}</td>
+                                <td class="p-5 text-center font-mono text-sm text-gray-400">{{ user.application_no }}
                                 </td>
                                 <td class="p-5 text-center">
                                     <div class="flex items-center justify-center gap-3">
-                                        <form action="{{ url_for('approve_user', index=loop.index0) }}" method="POST" class="inline">
-                                            <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2 rounded-xl transition shadow-lg shadow-blue-600/20">Verify</button>
+                                        <form action="{{ url_for('accept_user', index=loop.index0) }}" method="POST"
+                                            class="inline">
+                                            <button
+                                                class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2 rounded-xl transition shadow-lg shadow-blue-600/20">Accept</button>
                                         </form>
-                                        <form action="{{ url_for('reject_user', index=loop.index0) }}" method="POST" class="inline">
-                                            <button class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-red-600 dark:text-red-400 text-xs font-bold px-5 py-2 rounded-xl hover:bg-red-50 transition">Reject</button>
+                                        <form action="{{ url_for('reject_user', index=loop.index0) }}" method="POST"
+                                            class="inline">
+                                            <button
+                                                class="bg-gray-700 border border-gray-600 text-red-400 text-xs font-bold px-5 py-2 rounded-xl hover:bg-red-900/20 transition">Reject</button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
                             {% else %}
-                            <tr><td colspan="4" class="p-10 text-center text-gray-400 italic">No pending applications found.</td></tr>
+                            <tr>
+                                <td colspan="3" class="p-10 text-center text-gray-400 italic">No pending applications
+                                    found.</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -125,30 +169,38 @@
             </div>
         </div>
 
-        <div id="section-approved" class="tab-content hidden">
-            <div class="glass-card rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div id="section-accepted" class="tab-content hidden">
+            <div class="glass-card rounded-3xl shadow-xl border border-gray-700 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Authorized Name</th>
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-center">Application No</th>
-                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-center">Status</th>
+                            <tr class="bg-gray-800/50 border-b border-gray-700">
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400">Authorized Name
+                                </th>
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400 text-center">
+                                    Application No</th>
+                                <th class="p-5 text-xs font-bold uppercase tracking-wider text-gray-400 text-center">
+                                    Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-                            {% for user in approved_users %}
-                            <tr class="search-row hover:bg-green-50/10 dark:hover:bg-green-900/5 transition duration-200">
-                                <td class="p-5 font-bold text-gray-800 dark:text-gray-200">{{ user.name }}</td>
-                                <td class="p-5 text-center font-mono text-sm text-gray-600 dark:text-gray-400">{{ user.application_no }}</td>
+                        <tbody class="divide-y divide-gray-700">
+                            {% for user in accepted_users %}
+                            <tr class="search-row hover:bg-green-900/10 transition duration-200">
+                                <td class="p-5 font-bold text-gray-200">{{ user.name }}</td>
+                                <td class="p-5 text-center font-mono text-sm text-gray-400">{{ user.application_no }}
+                                </td>
                                 <td class="p-5 text-center">
-                                    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                                    <span
+                                        class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black bg-green-900/30 text-green-400">
                                         ✓ VERIFIED
                                     </span>
                                 </td>
                             </tr>
                             {% else %}
-                            <tr><td colspan="3" class="p-10 text-center text-gray-400 italic">No authorized users yet.</td></tr>
+                            <tr>
+                                <td colspan="3" class="p-10 text-center text-gray-400 italic">No authorized users yet.
+                                </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -157,19 +209,46 @@
         </div>
     </main>
 
-    <div id="logoutModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-[100]">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 max-w-sm w-full mx-4">
-            <h3 class="text-xl font-black text-gray-900 dark:text-white text-center mb-8">End Session?</h3>
+    <div id="logoutModal"
+        class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center z-[100]">
+        <div class="bg-gray-800 p-8 rounded-3xl shadow-2xl border border-gray-700 max-w-sm w-full mx-4">
+            <h3 class="text-xl font-black text-white text-center mb-8">End Session?</h3>
             <div class="flex flex-col gap-3">
-                <a href="page1.html" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-2xl font-bold text-center">Logout</a>
-                <button onclick="toggleLogoutModal(false)" class="w-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 py-3 rounded-2xl font-bold">Cancel</button>
+                <a href="{{ url_for('page1') }}"
+                    class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-2xl font-bold text-center">Logout</a>
+                <button onclick="toggleLogoutModal(false)"
+                    class="w-full bg-gray-700 text-gray-200 py-3 rounded-2xl font-bold">Cancel</button>
             </div>
         </div>
     </div>
 
     <script>
+        function exportCSV() {
+            let csv = "Name,Application No\n";
+
+            document.querySelectorAll(".search-row").forEach(row => {
+                const cells = row.querySelectorAll("td");
+
+                const name = cells[0].innerText.trim();
+                const appNo = cells[1].innerText.trim();
+
+                csv += `${name},${appNo}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'SatyaID_Users.csv';
+
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
         function toggleLogoutModal(show) { document.getElementById('logoutModal').classList.toggle('hidden', !show); }
-        
+
         function filterDash() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const rows = document.querySelectorAll('.search-row');
@@ -177,31 +256,39 @@
         }
 
         function switchTab(tab) {
-            // Sections
             const pendingSection = document.getElementById('section-pending');
-            const approvedSection = document.getElementById('section-approved');
+            const acceptedSection = document.getElementById('section-accepted');
             const pageTitle = document.getElementById('page-title');
 
-            // Buttons
             const btnPending = document.getElementById('btn-pending');
-            const btnApproved = document.getElementById('btn-approved');
+            const btnAccepted = document.getElementById('btn-accepted');
 
             if (tab === 'pending') {
                 pendingSection.classList.remove('hidden');
-                approvedSection.classList.add('hidden');
+                acceptedSection.classList.add('hidden');
+
                 btnPending.classList.add('active');
-                btnApproved.classList.remove('active', 'bg-blue-600', 'text-white');
-                btnApproved.classList.add('text-gray-500');
-                pageTitle.innerHTML = 'Pending <span class="text-blue-600">Applications</span>';
+                btnAccepted.classList.remove('active');
+
+                pageTitle.innerHTML = 'Pending <span class="text-blue-500">Applications</span>';
             } else {
-                approvedSection.classList.remove('hidden');
+                acceptedSection.classList.remove('hidden');
                 pendingSection.classList.add('hidden');
-                btnApproved.classList.add('active');
-                btnPending.classList.remove('active', 'bg-blue-600', 'text-white');
-                btnPending.classList.add('text-gray-500');
-                pageTitle.innerHTML = 'Approved <span class="text-green-500">Users</span>';
+
+                btnAccepted.classList.add('active');
+                btnPending.classList.remove('active');
+
+                pageTitle.innerHTML = 'Accepted <span class="text-green-400">Users</span>';
             }
         }
+        // Disable back/forward navigation
+        history.pushState(null, null, location.href);
+
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+        };
+
     </script>
 </body>
+
 </html>
